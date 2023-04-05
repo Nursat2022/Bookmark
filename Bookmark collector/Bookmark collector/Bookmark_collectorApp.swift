@@ -11,7 +11,7 @@ import SwiftUI
 struct Bookmark_collectorApp: App {
     var body: some Scene {
         WindowGroup {
-            firstView()
+            ContentView()
         }
     }
 }

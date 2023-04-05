@@ -1,5 +1,5 @@
 //
-//  thirdView.swift
+//  ListView.swift
 //  Bookmark collector
 //
 //  Created by Nursat Sakyshev on 05.04.2023.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct thirdView: View {
+struct ListView: View {
     var image = Image("Group")
     var body: some View {
         VStack {
@@ -19,6 +19,8 @@ struct thirdView: View {
                     Text("Google")
                     Spacer()
                     image
+                    
+                    
                 }
                 
                 Divider()
@@ -44,7 +46,6 @@ struct thirdView: View {
                     Spacer()
                     image
                 }
-            
                 Divider()
             
             }
@@ -64,8 +65,8 @@ struct thirdView: View {
     }
 }
 
-struct thirdView_Previews: PreviewProvider {
+struct ListView_Previews: PreviewProvider {
     static var previews: some View {
-        thirdView()
+        ListView()
     }
 }
