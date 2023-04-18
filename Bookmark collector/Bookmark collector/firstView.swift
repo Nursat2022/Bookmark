@@ -19,25 +19,29 @@ struct firstView: View {
             }
             .edgesIgnoringSafeArea(.all)
             
-            Text("Save all interesting links in one app")
-//                .frame(width: 358)
-                .foregroundColor(.white)
-                .fontWeight(.bold)
-                .font(.system(size: 36))
-                .lineSpacing(12)
-                .padding(.trailing, 40)
-            
-            Button(action: {}, label: {
-                Text("Let's start collecting")
-                    .foregroundColor(.black)
-                    .fontWeight(.semibold)
-                    .font(.system(size: 16))
-            })
-            .frame(width: 358, height: 58)
-            .background(Color.white)
-            .cornerRadius(16)
-            .padding(.bottom, 50)
+            VStack(spacing: 24) {
+                Text("Save all interesting links in one app")
+                    .foregroundColor(.white)
+                    .fontWeight(.bold)
+                    .font(.system(size: 36))
+                    .lineSpacing(12)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .padding(.trailing, 40)
+                    .frame(width: 358, height: 92)
+                
+                Button(action: {}, label: {
+                    Text("Let's start collecting")
+                        .foregroundColor(.black)
+                        .fontWeight(.semibold)
+                        .frame(width: 310)
+                        .font(.system(size: 16))
+                })
+                .frame(width: 358, height: 58)
+                .background(Color.white)
+                .cornerRadius(16)
+            }
         }
+        .padding(.bottom, 50)
         .background(Color.black)
     }
 }

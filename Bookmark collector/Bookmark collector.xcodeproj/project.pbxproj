@@ -16,6 +16,7 @@
 		C8D6B61229DBFE83008F96BC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D6B61129DBFE83008F96BC /* ContentView.swift */; };
 		C8D6B61429DBFE83008F96BC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C8D6B61329DBFE83008F96BC /* Assets.xcassets */; };
 		C8D6B61729DBFE83008F96BC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C8D6B61629DBFE83008F96BC /* Preview Assets.xcassets */; };
+		C8D7D68329DE58E9000707CE /* ActionSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D7D68229DE58E9000707CE /* ActionSheetView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,7 @@
 		C8D6B61129DBFE83008F96BC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		C8D6B61329DBFE83008F96BC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C8D6B61629DBFE83008F96BC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		C8D7D68229DE58E9000707CE /* ActionSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionSheetView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +72,7 @@
 				C871854229DCF6FF0023FE15 /* ListView.swift */,
 				C871854429DCFE210023FE15 /* thirdView.swift */,
 				C871854629DD17AE0023FE15 /* fourthView.swift */,
+				C8D7D68229DE58E9000707CE /* ActionSheetView.swift */,
 			);
 			path = "Bookmark collector";
 			sourceTree = "<group>";
@@ -154,6 +157,7 @@
 			files = (
 				C8D6B61229DBFE83008F96BC /* ContentView.swift in Sources */,
 				C871854729DD17AE0023FE15 /* fourthView.swift in Sources */,
+				C8D7D68329DE58E9000707CE /* ActionSheetView.swift in Sources */,
 				C834871E29DC1B3C00A3A55F /* firstView.swift in Sources */,
 				C871854529DCFE210023FE15 /* thirdView.swift in Sources */,
 				C871854329DCF6FF0023FE15 /* ListView.swift in Sources */,

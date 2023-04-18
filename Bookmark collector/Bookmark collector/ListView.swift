@@ -19,8 +19,6 @@ struct ListView: View {
                     Text("Google")
                     Spacer()
                     image
-                    
-                    
                 }
                 
                 Divider()
@@ -61,6 +59,7 @@ struct ListView: View {
             .frame(width: 358, height: 58)
             .background(Color.black)
             .cornerRadius(16)
+            .padding(.bottom, 50)
         }
     }
 }
