@@ -19,6 +19,18 @@ struct ListView: View {
                     .listRowInsets(EdgeInsets(top: 11, leading: 16, bottom: 11, trailing: 16))
                     .padding(.top, 28)
                     .listRowBackground(Color.black.opacity(0))
+                    .swipeActions {
+                        Button(action: {}) {
+                            Text("Delete")
+                        }
+                        .tint(.red)
+                        
+                        Button(action: {}) {
+                            Text("Change")
+                        }
+                        .tint(.blue)
+                        
+                    }
             }
             .listStyle(.plain)
         }
