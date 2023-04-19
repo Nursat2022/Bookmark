@@ -90,7 +90,7 @@ struct CustomActionSheet: View {
                 
                 blackButton(text: "Save") {
                     if bookmarkTitle != "" && bookmarkLink != "" {
-                        bookmarks.append(bookMark(id: bookmarks.count + 1, title: bookmarkTitle, link: bookmarkLink))
+                        bookmarks.append(bookMark(id: bookmarks.count, title: bookmarkTitle, link: bookmarkLink))
                         do {
                                 let encodedBookmarks = try JSONEncoder().encode(bookmarks)
                                 bookmarksData = encodedBookmarks

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ListView: View {
     @Binding var bookmarks: [bookMark]
+    @AppStorage("bookmarks") var bookmarksData: Data = Data()
     var image = Image("Group")
     var body: some View {
         VStack {
@@ -20,7 +21,17 @@ struct ListView: View {
                     .padding(.top, 28)
                     .listRowBackground(Color.black.opacity(0))
                     .swipeActions {
-                        Button(action: {}) {
+                        Button(role: .destructive, action: {
+                            if let index = bookmarks.firstIndex(where: { $0.id == bookmark.id }) {
+                                bookmarks.remove(at: index)
+                                do {
+                                    let encodedBookmarks = try JSONEncoder().encode(bookmarks)
+                                    bookmarksData = encodedBookmarks
+                                } catch {
+                                    print("Error encoding bookmarks: \(error)")
+                                }
+                            }
+                        }) {
                             Text("Delete")
                         }
                         .tint(.red)
