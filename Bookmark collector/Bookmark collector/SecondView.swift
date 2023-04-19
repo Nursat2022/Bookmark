@@ -12,6 +12,7 @@ struct SecondView: View {
     @State private var showActionSheet = false
     @State private var bookmarkTitle = ""
     @State private var bookmarkLink = ""
+    @AppStorage("bookmarks") var bookmarksData: Data = Data()
 
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -49,6 +50,11 @@ struct SecondView: View {
                 .offset(y: showActionSheet ? 0 : UIScreen.main.bounds.height)
                 .animation(.spring(), value: showActionSheet)
         }
+        .onAppear {
+            if let decodedBookmarks = try? JSONDecoder().decode([bookMark].self, from: bookmarksData) {
+                bookmarks = decodedBookmarks
+            }
+        }
         .background(showActionSheet ? .black.opacity(0.3) : .white)
     }
 }
@@ -58,6 +64,7 @@ struct CustomActionSheet: View {
     @Binding var showActionSheet: Bool
     @Binding var bookmarkTitle: String
     @Binding var bookmarkLink: String
+    @AppStorage("bookmarks") var bookmarksData: Data = Data()
     
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -84,6 +91,12 @@ struct CustomActionSheet: View {
                 blackButton(text: "Save") {
                     if bookmarkTitle != "" && bookmarkLink != "" {
                         bookmarks.append(bookMark(id: bookmarks.count + 1, title: bookmarkTitle, link: bookmarkLink))
+                        do {
+                                let encodedBookmarks = try JSONEncoder().encode(bookmarks)
+                                bookmarksData = encodedBookmarks
+                            } catch {
+                                print("Error encoding bookmarks: \(error)")
+                            }
                         showActionSheet = false
                         bookmarkTitle = ""
                         bookmarkLink = ""
@@ -129,7 +142,7 @@ struct blackButton: View {
     }
 }
 
-struct bookMark: View, Identifiable {
+struct bookMark: View, Identifiable, Codable {
     var id: Int
     var title: String
     var link: String
