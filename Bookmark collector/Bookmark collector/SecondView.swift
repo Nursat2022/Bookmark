@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct SecondView: View {
-//    @State private var bookmarks: [bookMark] = [bookMark(id: 1, title: "sdf", link: "insdf")]
-        @State private var bookmarks: [bookMark] = []
+    @State private var bookmarks: [bookMark] = []
     @State private var showActionSheet = false
     @State private var bookmarkTitle = ""
     @State private var bookmarkLink = ""
@@ -17,21 +16,24 @@ struct SecondView: View {
 
     var body: some View {
         ZStack(alignment: .bottom) {
-            if bookmarks.isEmpty {
                 VStack {
-                    Text("Bookmark App")
-                        .font(.system(size: 17))
-                        .fontWeight(.bold)
-                    
-                    Spacer()
-                    
-                    Text("Save your first \nbookmark")
-                        .font(.system(size: 34))
-                        .fontWeight(.bold)
-                        .lineSpacing(10)
-                        .frame(width: 358, height: 92)
-                        .multilineTextAlignment(.center)
-                    
+                    if bookmarks.isEmpty {
+                        Text("Bookmark App")
+                            .font(.system(size: 17))
+                            .fontWeight(.bold)
+                        
+                        Spacer()
+                        
+                        Text("Save your first \nbookmark")
+                            .font(.system(size: 34))
+                            .fontWeight(.bold)
+                            .lineSpacing(10)
+                            .frame(width: 358, height: 92)
+                            .multilineTextAlignment(.center)
+                    }
+                    else {
+                        ListView(bookmarks: $bookmarks)
+                    }
                     Spacer()
                     
                     blackButton(text: "Add bookmark") {
@@ -43,11 +45,8 @@ struct SecondView: View {
                 .padding(.bottom,50)
                 .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
                 //        .ignoresSafeArea()
-            }
-            else {
-                ListView(bookmarks: $bookmarks)
-            }
-            CustomActionSheet(showActionSheet: $showActionSheet, bookmarkTitle: $bookmarkTitle, bookmarkLink: $bookmarkLink)
+           
+            CustomActionSheet(bookmarks: $bookmarks, showActionSheet: $showActionSheet, bookmarkTitle: $bookmarkTitle, bookmarkLink: $bookmarkLink)
                 .offset(y: showActionSheet ? 0 : UIScreen.main.bounds.height)
                 .animation(.spring(), value: showActionSheet)
         }
@@ -56,6 +55,7 @@ struct SecondView: View {
 }
 
 struct CustomActionSheet: View {
+    @Binding var bookmarks: [bookMark]
     @Binding var showActionSheet: Bool
     @Binding var bookmarkTitle: String
     @Binding var bookmarkLink: String
@@ -83,7 +83,12 @@ struct CustomActionSheet: View {
                 .padding(.bottom, 24)
                 
                 blackButton(text: "Save") {
-                    
+                    if bookmarkTitle != "" && bookmarkLink != "" {
+                        bookmarks.append(bookMark(id: bookmarks.count + 1, title: bookmarkTitle, link: bookmarkLink))
+                        showActionSheet = false
+                        bookmarkTitle = ""
+                        bookmarkLink = ""
+                    }
                 }
             }
             .padding(.horizontal)
