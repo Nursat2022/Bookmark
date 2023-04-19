@@ -7,11 +7,23 @@
 
 import SwiftUI
 
+enum AppScreenState {
+    case onboarding
+    case main
+}
+
 @main
 struct Bookmark_collectorApp: App {
+    @AppStorage("welcome") var showWelcomeScreen: Bool = true
+    
     var body: some Scene {
         WindowGroup {
-            SecondView()
+            if showWelcomeScreen {
+                firstView()
+            }
+            else {
+                SecondView()
+            }
         }
     }
 }

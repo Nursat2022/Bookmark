@@ -12,7 +12,6 @@ struct SecondView: View {
     @State private var showActionSheet = false
     @State private var bookmarkTitle = ""
     @State private var bookmarkLink = ""
-    
 
     var body: some View {
         ZStack(alignment: .bottom) {

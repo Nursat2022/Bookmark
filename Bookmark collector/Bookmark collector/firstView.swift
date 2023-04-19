@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct firstView: View {
+//    @AppStorage("welcomeScreen") var showWelcomeScreen: Bool = false
+    
     var body: some View {
         VStack {
             ZStack(alignment: .top) {
@@ -29,7 +31,9 @@ struct firstView: View {
                     .padding(.trailing, 40)
                     .frame(width: 358, height: 92)
                 
-                Button(action: {}, label: {
+                Button(action: {
+                    UserDefaults.standard.set(false, forKey: "welcome")
+                }, label: {
                     Text("Let's start collecting")
                         .foregroundColor(.black)
                         .fontWeight(.semibold)
