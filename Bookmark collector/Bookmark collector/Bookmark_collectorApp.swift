@@ -22,7 +22,10 @@ struct Bookmark_collectorApp: App {
                 firstView()
             }
             else {
-                SecondView()
+                withAnimation {
+                    SecondView()
+                        .transition(.move(edge: .trailing))
+                }
             }
         }
     }
