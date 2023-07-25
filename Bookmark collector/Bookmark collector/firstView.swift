@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct firstView: View {
-//    @AppStorage("welcomeScreen") var showWelcomeScreen: Bool = false
-    
     var body: some View {
         VStack {
             ZStack(alignment: .top) {
@@ -17,7 +15,7 @@ struct firstView: View {
                 Color.black.opacity(0.2)
                 Image("image81")
                     .resizable()
-                    .frame(width: 390, height: 614)
+                    .frame(width: UIScreen.main.bounds.width, height: 614)
             }
             .edgesIgnoringSafeArea(.all)
             
@@ -28,8 +26,7 @@ struct firstView: View {
                     .font(.system(size: 36))
                     .lineSpacing(12)
                     .fixedSize(horizontal: false, vertical: true)
-                    .padding(.trailing, 40)
-                    .frame(width: 358, height: 92)
+                    .frame(width: 358, height: 92, alignment: .leading)
                 
                 Button(action: {
                     UserDefaults.standard.set(false, forKey: "welcome")
