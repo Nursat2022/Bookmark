@@ -9,9 +9,12 @@ import SwiftUI
 
 struct SecondView: View {
     @State private var bookmarks: [bookMark] = []
+    @State private var addBookmark: Bool = true
     @State private var showActionSheet = false
     @State private var bookmarkTitle = ""
     @State private var bookmarkLink = ""
+    @State private var selectedBookmark: bookMark?
+    @State private var indexToChange = 0
     @AppStorage("bookmarks") var bookmarksData: Data = Data()
 
     var body: some View {
@@ -32,8 +35,9 @@ struct SecondView: View {
                             .multilineTextAlignment(.center)
                     }
                     else {
-                        ListView(bookmarks: $bookmarks)
+                        ListView(bookmarks: $bookmarks, showActionSheet: $showActionSheet, bookmarkTitle: $bookmarkTitle, bookmarkLink: $bookmarkLink, addBookmark: $addBookmark, indexToChange: $indexToChange)
                     }
+                    
                     Spacer()
                     
                     blackButton(text: "Add bookmark") {
@@ -44,9 +48,18 @@ struct SecondView: View {
                 .padding(.top, 56)
                 .padding(.bottom,50)
                 .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
-                //        .ignoresSafeArea()
            
-            CustomActionSheet(bookmarks: $bookmarks, showActionSheet: $showActionSheet, bookmarkTitle: $bookmarkTitle, bookmarkLink: $bookmarkLink)
+            CustomActionSheet(bookmarks: $bookmarks, showActionSheet: $showActionSheet, bookmarkTitle: $bookmarkTitle, bookmarkLink: $bookmarkLink) {
+                if bookmarkTitle != "" && bookmarkLink != "" {
+                    if addBookmark {
+                        bookmarks.append(bookMark(id: bookmarks.count, title: bookmarkTitle, link: bookmarkLink))
+                    }
+                    else {
+                        bookmarks[indexToChange].title = bookmarkTitle
+                        bookmarks[indexToChange].link = bookmarkLink
+                    }
+                }
+            }
                 .offset(y: showActionSheet ? 0 : UIScreen.main.bounds.height)
                 .animation(.spring(), value: showActionSheet)
         }
@@ -65,63 +78,75 @@ struct CustomActionSheet: View {
     @Binding var bookmarkTitle: String
     @Binding var bookmarkLink: String
     @AppStorage("bookmarks") var bookmarksData: Data = Data()
+    var action: () -> Void
     
     var body: some View {
         ZStack(alignment: .bottom) {
             RoundedRectangle(cornerRadius: 20)
                 .fill(.white)
-                .frame(width: 390, height: 362)
+                .frame(width: UIScreen.main.bounds.width, height: 362)
             
             VStack(alignment: .leading, spacing: 0) {
-                HStack {
-                    Spacer()
-                    Button(action: { showActionSheet = false }) {
-                        Image("Vector")
-                    }
-                }
-                .padding(.vertical, 22)
+                header
+                    .padding(.vertical, 22)
                 
                 VStack(spacing: 16) {
-                    titleAndTextField(text: "Title", linkOrTitle: $bookmarkTitle, placeHolder: "Bookmark title")
+                    customTextField(linkOrTitle: $bookmarkTitle, placeHolder: "Bookmark title")
+                        .withTitle(title: "Title")
                     
-                    titleAndTextField(text: "Link", linkOrTitle: $bookmarkLink, placeHolder: "Bookmark link (URL)")
+                    customTextField(linkOrTitle: $bookmarkLink, placeHolder: "Bookmark link (URL)")
+                        .withTitle(title: "Link")
                 }
                 .padding(.bottom, 24)
                 
                 blackButton(text: "Save") {
-                    if bookmarkTitle != "" && bookmarkLink != "" {
-                        bookmarks.append(bookMark(id: bookmarks.count, title: bookmarkTitle, link: bookmarkLink))
-                        do {
-                                let encodedBookmarks = try JSONEncoder().encode(bookmarks)
-                                bookmarksData = encodedBookmarks
-                            } catch {
-                                print("Error encoding bookmarks: \(error)")
-                            }
-                        showActionSheet = false
-                        bookmarkTitle = ""
-                        bookmarkLink = ""
+                    action()
+                    do {
+                        let encodedBookmarks = try JSONEncoder().encode(bookmarks)
+                        bookmarksData = encodedBookmarks
+                    } catch {
+                        print("Error encoding bookmarks: \(error)")
                     }
+                    showActionSheet = false
+                    bookmarkTitle = ""
+                    bookmarkLink = ""
                 }
             }
             .padding(.horizontal)
             .padding(.bottom, 50)
         }
     }
+    
+    var header: some View {
+        HStack {
+            Spacer()
+            Button(action: { showActionSheet = false }) {
+                Image(systemName: "xmark")
+                    .foregroundColor(.black)
+                    .fontWeight(.semibold)
+            }
+        }
+    }
 }
 
-struct titleAndTextField: View {
-    var text: String
+struct customTextField: View {
     @Binding var linkOrTitle: String
     var placeHolder: String
     var body: some View {
+        TextField(placeHolder, text: $linkOrTitle)
+            .padding(17)
+            .accentColor(.yellow)
+            .frame(width: 358, height: 46)
+            .background(Color(red: 242/255, green: 242/255, blue: 238/255))
+            .cornerRadius(16)
+    }
+}
+
+extension View {
+    func withTitle(title: String) -> some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text(text)
-            TextField(placeHolder, text: $linkOrTitle)
-                .padding(17)
-                .accentColor(.yellow)
-                .frame(width: 358, height: 46)
-                .background(Color(red: 242/255, green: 242/255, blue: 238/255))
-                .cornerRadius(16)
+            Text(title)
+            self
         }
     }
 }
@@ -142,6 +167,7 @@ struct blackButton: View {
     }
 }
 
+//MARK: BOOKMARK
 struct bookMark: View, Identifiable, Codable {
     var id: Int
     var title: String

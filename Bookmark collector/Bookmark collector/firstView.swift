@@ -10,13 +10,7 @@ import SwiftUI
 struct firstView: View {
     var body: some View {
         VStack {
-            ZStack(alignment: .top) {
-                LinearGradient(gradient: Gradient(colors: [.white, .black]), startPoint: .top, endPoint: .bottom)
-                Color.black.opacity(0.2)
-                Image("image81")
-                    .resizable()
-                    .frame(width: UIScreen.main.bounds.width, height: 614)
-            }
+            backgroundImage
             .edgesIgnoringSafeArea(.all)
             
             VStack(spacing: 24) {
@@ -44,6 +38,14 @@ struct firstView: View {
         }
         .padding(.bottom, 50)
         .background(Color.black)
+    }
+    
+    var backgroundImage: some View {
+        ZStack {
+            Image("backgroundImage")
+                .resizable()
+                .frame(width: UIScreen.main.bounds.width, height: 614)
+        }
     }
 }
 

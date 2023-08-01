@@ -9,6 +9,11 @@ import SwiftUI
 
 struct ListView: View {
     @Binding var bookmarks: [bookMark]
+    @Binding var showActionSheet: Bool
+    @Binding var bookmarkTitle: String
+    @Binding var bookmarkLink: String
+    @Binding var addBookmark: Bool
+    @Binding var indexToChange: Int
     @AppStorage("bookmarks") var bookmarksData: Data = Data()
     var image = Image("Group")
     var body: some View {
@@ -36,7 +41,15 @@ struct ListView: View {
                         }
                         .tint(.red)
                         
-                        Button(action: {}) {
+                        Button(action: {
+                            addBookmark = false
+                            showActionSheet = true
+                            if let index = bookmarks.firstIndex(where: { $0.id == bookmark.id }) {
+                                indexToChange = index
+                                bookmarkLink = bookmarks[index].link
+                                bookmarkTitle = bookmarks[index].title
+                            }
+                        }) {
                             Text("Change")
                         }
                         .tint(.blue)
