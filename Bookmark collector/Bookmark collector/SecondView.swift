@@ -16,6 +16,7 @@ struct SecondView: View {
     @State private var selectedBookmark: bookMark?
     @State private var indexToChange = 0
     @AppStorage("bookmarks") var bookmarksData: Data = Data()
+    
 
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -49,7 +50,7 @@ struct SecondView: View {
                 .padding(.bottom,50)
                 .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
            
-            CustomActionSheet(bookmarks: $bookmarks, showActionSheet: $showActionSheet, bookmarkTitle: $bookmarkTitle, bookmarkLink: $bookmarkLink) {
+            CustomBottomSheet(bookmarks: $bookmarks, showActionSheet: $showActionSheet, bookmarkTitle: $bookmarkTitle, bookmarkLink: $bookmarkLink) {
                 if bookmarkTitle != "" && bookmarkLink != "" {
                     if addBookmark {
                         bookmarks.append(bookMark(id: bookmarks.count, title: bookmarkTitle, link: bookmarkLink))
@@ -63,67 +64,10 @@ struct SecondView: View {
                 .offset(y: showActionSheet ? 0 : UIScreen.main.bounds.height)
                 .animation(.spring(), value: showActionSheet)
         }
+        .background(showActionSheet ? .black.opacity(0.3) : .white)
         .onAppear {
             if let decodedBookmarks = try? JSONDecoder().decode([bookMark].self, from: bookmarksData) {
                 bookmarks = decodedBookmarks
-            }
-        }
-        .background(showActionSheet ? .black.opacity(0.3) : .white)
-    }
-}
-
-struct CustomActionSheet: View {
-    @Binding var bookmarks: [bookMark]
-    @Binding var showActionSheet: Bool
-    @Binding var bookmarkTitle: String
-    @Binding var bookmarkLink: String
-    @AppStorage("bookmarks") var bookmarksData: Data = Data()
-    var action: () -> Void
-    
-    var body: some View {
-        ZStack(alignment: .bottom) {
-            RoundedRectangle(cornerRadius: 20)
-                .fill(.white)
-                .frame(width: UIScreen.main.bounds.width, height: 362)
-            
-            VStack(alignment: .leading, spacing: 0) {
-                header
-                    .padding(.vertical, 22)
-                
-                VStack(spacing: 16) {
-                    customTextField(linkOrTitle: $bookmarkTitle, placeHolder: "Bookmark title")
-                        .withTitle(title: "Title")
-                    
-                    customTextField(linkOrTitle: $bookmarkLink, placeHolder: "Bookmark link (URL)")
-                        .withTitle(title: "Link")
-                }
-                .padding(.bottom, 24)
-                
-                blackButton(text: "Save") {
-                    action()
-                    do {
-                        let encodedBookmarks = try JSONEncoder().encode(bookmarks)
-                        bookmarksData = encodedBookmarks
-                    } catch {
-                        print("Error encoding bookmarks: \(error)")
-                    }
-                    showActionSheet = false
-                    bookmarkTitle = ""
-                    bookmarkLink = ""
-                }
-            }
-            .padding(.horizontal)
-            .padding(.bottom, 50)
-        }
-    }
-    
-    var header: some View {
-        HStack {
-            Spacer()
-            Button(action: { showActionSheet = false }) {
-                Image(systemName: "xmark")
-                    .foregroundColor(.black)
-                    .fontWeight(.semibold)
             }
         }
     }
@@ -167,26 +111,14 @@ struct blackButton: View {
     }
 }
 
-//MARK: BOOKMARK
-struct bookMark: View, Identifiable, Codable {
-    var id: Int
-    var title: String
-    var link: String
-    var body: some View {
-        Link(destination: URL(string: link)!) {
-        HStack {
-                Text(title)
-                Spacer()
-                Image("Group")
-            }
-        }
-        .foregroundColor(.black)
-    }
-}
-
 
 struct SecondView_Previews: PreviewProvider {
     static var previews: some View {
         SecondView()
     }
+}
+
+func hideKeyboard() {
+    let resign = #selector(UIResponder.resignFirstResponder)
+    UIApplication.shared.sendAction(resign, to: nil, from: nil, for: nil)
 }
