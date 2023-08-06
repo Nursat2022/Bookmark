@@ -73,19 +73,7 @@ struct SecondView: View {
     }
 }
 
-struct customTextField: View {
-    @Binding var linkOrTitle: String
-    var placeHolder: String
-    var body: some View {
-        TextField(placeHolder, text: $linkOrTitle)
-            .padding(17)
-            .accentColor(.yellow)
-            .frame(width: 358, height: 46)
-            .background(Color(red: 242/255, green: 242/255, blue: 238/255))
-            .cornerRadius(16)
-    }
-}
-
+//MARK: EXTENSION
 extension View {
     func withTitle(title: String) -> some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -94,7 +82,6 @@ extension View {
         }
     }
 }
-
 
 struct blackButton: View {
     var text: String
@@ -118,6 +105,7 @@ struct SecondView_Previews: PreviewProvider {
     }
 }
 
+//MARK: HIDE KEYBOARD
 func hideKeyboard() {
     let resign = #selector(UIResponder.resignFirstResponder)
     UIApplication.shared.sendAction(resign, to: nil, from: nil, for: nil)

@@ -15,6 +15,7 @@
 		C8D6B61029DBFE83008F96BC /* Bookmark_collectorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8D6B60F29DBFE83008F96BC /* Bookmark_collectorApp.swift */; };
 		C8D6B61429DBFE83008F96BC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C8D6B61329DBFE83008F96BC /* Assets.xcassets */; };
 		C8D6B61729DBFE83008F96BC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C8D6B61629DBFE83008F96BC /* Preview Assets.xcassets */; };
+		C8E997342A7FCAC1007AD2FE /* customTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E997332A7FCAC1007AD2FE /* customTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		C8D6B60F29DBFE83008F96BC /* Bookmark_collectorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bookmark_collectorApp.swift; sourceTree = "<group>"; };
 		C8D6B61329DBFE83008F96BC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C8D6B61629DBFE83008F96BC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		C8E997332A7FCAC1007AD2FE /* customTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +69,7 @@
 				C82852AF2A7ACA9B0089531F /* CustomBottomSheet.swift */,
 				C871854229DCF6FF0023FE15 /* ListView.swift */,
 				C82852B12A7ACB130089531F /* Bookmark.swift */,
+				C8E997332A7FCAC1007AD2FE /* customTextField.swift */,
 			);
 			path = "Bookmark collector";
 			sourceTree = "<group>";
@@ -150,6 +153,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C834871E29DC1B3C00A3A55F /* firstView.swift in Sources */,
+				C8E997342A7FCAC1007AD2FE /* customTextField.swift in Sources */,
 				C871854329DCF6FF0023FE15 /* ListView.swift in Sources */,
 				C82852B02A7ACA9B0089531F /* CustomBottomSheet.swift in Sources */,
 				C801C04A29DC8FE40021ED8F /* SecondView.swift in Sources */,
